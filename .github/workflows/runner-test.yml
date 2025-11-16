@@ -1,0 +1,26 @@
+name: 验证自托管 Runner
+
+# 触发条件：手动触发（可在 GitHub 仓库的 Actions 页面点击"Run workflow"）
+on:
+  workflow_dispatch:
+
+jobs:
+  test-runner:
+    # 指定使用你的自托管 runner（名称需与 GitHub 上显示的完全一致）
+    runs-on: RaspberryPI4B-LEILEI
+
+    steps:
+      - name: 打印 Runner 信息
+        run: |
+          echo "🎉 自托管 Runner 成功接收任务！"
+          echo "当前系统信息："
+          uname -a  # 输出系统内核信息
+          echo "当前用户：$(whoami)"  # 输出运行用户
+          echo "当前时间：$(date)"  # 输出当前时间
+
+      - name: 测试基础命令
+        run: |
+          echo "测试目录列表："
+          ls -la
+          echo "测试网络连通性（GitHub）："
+          ping -c 3 github.com
