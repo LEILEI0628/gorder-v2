@@ -6,17 +6,16 @@ on:
 
 jobs:
   test-runner:
-    # 指定使用你的自托管 runner（名称需与 GitHub 上显示的完全一致）
-    runs-on: RaspberryPI4B-LEILEI
+    # 使用自托管 runner 的默认标签
+    runs-on: self-hosted
 
     steps:
       - name: 打印 Runner 信息
         run: |
           echo "🎉 自托管 Runner 成功接收任务！"
-          echo "当前系统信息："
-          uname -a  # 输出系统内核信息
-          echo "当前用户：$(whoami)"  # 输出运行用户
-          echo "当前时间：$(date)"  # 输出当前时间
+          echo "Runner 名称: $RUNNER_NAME"  # 显示当前 runner 名称
+          echo "系统信息: $(uname -a)"
+          echo "当前时间: $(date)"
 
       - name: 测试基础命令
         run: |
