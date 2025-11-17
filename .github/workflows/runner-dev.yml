@@ -1,0 +1,36 @@
+name: Dev 分支自动构建
+
+# 触发条件：推送到 dev 分支时自动触发
+on:
+  push:
+    branches:
+      - dev
+  workflow_dispatch:
+
+jobs:
+  test-runner:
+    # 使用自托管 runner 的默认标签
+    runs-on: self-hosted
+
+    steps:
+      - name: 检出代码
+        uses: actions/checkout@v4
+
+      - name: 设置 Go 环境
+        uses: actions/setup-go@v5
+        with:
+          go-version: '1.22'
+
+      - name: 打印构建信息
+        run: |
+          echo "🎉 开始 Dev 环境自动构建"
+          echo "Runner 名称: $RUNNER_NAME"
+          echo "Go 版本: $(go version)"
+          echo "当前分支: ${{ github.ref_name }}"
+          echo "提交信息: ${{ github.event.head_commit.message }}"
+          echo "提交者: ${{ github.event.head_commit.author.name }}"
+
+      - name: 运行构建脚本
+        run: |
+          chmod +x ./scripts/build-dev.sh
+          ./scripts/build-dev.sh
