@@ -6,8 +6,8 @@ on:
 
 jobs:
   test-runner:
-    # 使用自托管 runner 的默认标签
-    runs-on: self-hosted
+    #  runner 标签
+    runs-on: RaspberryPI4B-LEILEI
 
     steps:
       - name: 打印 Runner 信息
